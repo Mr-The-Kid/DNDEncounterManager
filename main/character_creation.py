@@ -5,21 +5,87 @@
 import csv
 
 #globals
+#character_fields is the list of fields that a character needs to be created.
+#Editing this list will update all processes to account for the new field values.
 character_fields = ["name", "total_hp", "current_hp", "ac"]
 
-def create_character(field_values):
-    next
+#Function to access the set character fields. Used by the program for rectification
+#of old characters that were created with a different set of required values
+#param(s)
+#no param(s)
+#return(s)
+#no return(s)
+def get_character_fields():
+    return character_fields
 
+#creates a new csv file for a character from the inputs provided for it.
+#param(s)
+#field_values: This is the list of values entered by the user to define this
+#character
+#return(s)
+#no return value
+def create_character(field_values):
+    print("\nFinished")
+
+#if a user decides that they want to change the values of their character before
+#the character is saved to a file they can do so here
+#param(s)
+#field_values: This is the list of values entered by the user to define this
+#character
+#return(s)
+#field_values: Returns the update list of field values
+def edit_created_character(field_values):
+    print("\nYou have chosen to edit your character. When you are done enter 'done'. This will\n" +
+          "exit edit mode and save your character. To edit later use edit mode from the menu.")
+    
+    editing = True
+
+    while editing:
+        print("The field values that you can edit are: " + character_fields)
+        print("Enter a field name as shown above. You will then be prompted to enter the new value.")
+
+        edit_field = input("\nField: ")
+        edit_field = edit_field.lower()
+        print("")
+
+        if edit_field == "done":
+            return field_values
+        elif edit_field in character_fields:
+            field_index = character_fields.index(edit_field)
+            
+            print("You are now editing the " + edit_field + " field. Current value is " + field_values[field_index])
+
+            field_values[field_index] = input("\nUpdating " + field_values[field_index] + " to: ")
+
+            print("\nUpdated value.")
+            print("\nThis is now your character:")
+            for i in range(len(character_fields)):
+                print("Character " + character_fields[i] + ": " + field_values[i])
+            print("")
+        else:
+            print("Please enter a field name or done.")
+            continue
+        
+
+#This is the main function where the user must input the information for their
+#character
+#param(s)
+#no param(s)
+#return(s)
+#no return(s)
 def value_inputs():
+    #Create an empy list the same size as character_fields
     field_values = [None] * len(character_fields)
-    save_character = True
     values_index = 0
 
+    #Until the user has satisfied every required value
     while values_index < len(character_fields):
-
+        
+        #Users input for current field value
         input_value = input("\nPlease enter the " + character_fields[values_index] +" for this character: ")
         input_value = input_value.lower()
 
+        #If the user decides to cancel at any point, ask for confirmation, then cancel
         if input_value == "cancel":
                 print("\nAre you sure you want to cancel creating this character? Nothing will be saved.\n" + 
                       "Enter 'yes' to cancel or anything else to continue.")
@@ -29,12 +95,12 @@ def value_inputs():
                 print("")
 
                 if cancel_input == "yes":
-                    save_character = False
-                    break
+                    return
 
                 else:
                     continue
         else:
+            #Check that only integers are used for values that are not the name
             if character_fields[values_index] != "name":
                 if input_value.isnumeric():
                     print("Character " + character_fields[values_index] + " saved as " + input_value)
@@ -43,22 +109,39 @@ def value_inputs():
                 else:
                     print("Please only input integers for values that are not names.")
             else:
+                #Check that only letters and numbers are used for the name
                 if input_value.isalnum():
                     print("Character " + character_fields[values_index] + " saved as " + input_value)
                     field_values[values_index] = input_value
                     values_index += 1
                 else:
                     print("Please only input letters and digits for a characters name.")
-    
+
+    #Print out the character that was entered for verification before saving to file
     print("\nCharacter completed. Here is your character: ")
     for i in range(len(character_fields)):
         print("Character " + character_fields[i] + ": " + field_values[i])
-    print("\nIf you would like to edit your character enter 'edit'. If you are satisfied\n" + 
+    print("\nIf you would like to edit your character enter 'yes'. If you are satisfied\n" + 
           "with your current character enter anything else.")
+    
+    edit_input = input("\nEdit?: ")
+    print("")
+    edit_input = edit_input.lower()
+
+    if edit_input == "yes":
+        field_values = edit_created_character(field_values)
+    
+    create_character(field_values)
 
             
-
+#the main function of character creation which explains the tool and lets the user
+#continue to create characters, or return to menu mode
+#param(s)
+#no param(s)
+#return(s)
+#no return(s)
 def upload_characters():
+    #Tool explanation
     print("Mode changed from menu to character upload.")
     print("In character upload you will be prompted to enter information for a character.\n" + 
           "Each prompt will tell you what information to enter. Once you have entered all\n" + 
@@ -69,6 +152,7 @@ def upload_characters():
     
     creation_running = True
 
+    #While the user wants to be in character creation
     while creation_running:
         print("To create a new character enter 'create'. To return to the normal command space enter 'exit'.")
 

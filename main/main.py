@@ -38,6 +38,8 @@ def main():
                 next
             case "exit":
                 program_running = False
+            case "edit":
+                next
             case default:
                 print("Please enter a valid command. For a list of valid commands enter 'help'.")
 
