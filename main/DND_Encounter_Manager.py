@@ -8,6 +8,7 @@ from pathlib import Path
 import os
 
 #globals
+#characters folder path *DO NOT CHANGE*
 characters_folder = str(os.path.normpath(os.getcwd())) + "\characters\\"
 
 #outputs a list of all commands that can be used
