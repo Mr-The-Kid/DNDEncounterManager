@@ -2,6 +2,7 @@
 # Last update: 03/28/24 - 1:11
 
 #imports
+import os
 
 #Get the list of all saved characters and prints them to the screen
 #param(s)

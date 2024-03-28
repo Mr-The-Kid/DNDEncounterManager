@@ -3,8 +3,7 @@
 
 #imports
 import csv
-import os
-from pathlib import Path
+import DND_Encounter_Manager as dnd
 
 #globals
 #character_fields is the list of fields that a character needs to be created.
@@ -27,8 +26,7 @@ def get_character_fields():
 #return(s)
 #no return value
 def create_character(field_values):
-    characters_folder = str(os.path.normpath(os.getcwd())) + "\characters\\"
-    Path(characters_folder).mkdir(parents=True, exist_ok=True)
+    characters_folder = dnd.get_characters_folder()
     file_name = characters_folder + field_values[character_fields.index("name")] + ".csv"
     print(file_name)
 
