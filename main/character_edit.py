@@ -2,6 +2,7 @@
 # Last update: 03/28/24 - 1:11
 
 #imports
+import DND_Encounter_Manager as dnd
 import os
 
 #Get the list of all saved characters and prints them to the screen
@@ -10,7 +11,8 @@ import os
 #return(s)
 #list of saved character names
 def get_characters_list():
-    next
+    characters_folder = dnd.get_characters_folder()
+    files_list = os.listdir(characters_folder)
 
 #Get the values of the currently selected character for editing
 #param(s)
@@ -30,10 +32,10 @@ def edit_character(character_name):
 
 #Edit mode which allows for the user to edit the values of a character
 #param(s)
-#no param(s)
+#characters_folder: the path to the characters folder
 #return(s)
 #no return(s)
-def edit():
+def edit(characters_folder):
     #Tool explanation
     print("Mode changed from menu to character edit.")
     print("In character edit you will be given the list of all characters that are currently.\n" + 
@@ -54,7 +56,7 @@ def edit():
         print("")
         character_name = character_name.lower()
 
-        character_list = get_characters_list()
+        character_list = get_characters_list(characters_folder)
 
         if character_name in character_list:
                 edit(character_name)

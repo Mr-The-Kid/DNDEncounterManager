@@ -10,10 +10,6 @@ import os
 #globals
 characters_folder = str(os.path.normpath(os.getcwd())) + "\characters\\"
 
-#Gets the characters folder location
-def get_characters_folder():
-    return characters_folder
-
 #outputs a list of all commands that can be used
 def display_help():
     print("upload:  Begins the process to upload characters to the encounter manager")
@@ -46,7 +42,7 @@ def main():
             case "help":
                 display_help()
             case "upload":
-                cc.upload_characters()
+                cc.upload_characters(characters_folder)
             case "create":
                 next
             case "start":
@@ -54,7 +50,7 @@ def main():
             case "exit":
                 program_running = False
             case "edit":
-                ce.edit()
+                ce.edit(characters_folder)
             case default:
                 print("Please enter a valid command. For a list of valid commands enter 'help'.")
 

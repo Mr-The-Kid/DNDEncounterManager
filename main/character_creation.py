@@ -22,11 +22,11 @@ def get_character_fields():
 #creates a new csv file for a character from the inputs provided for it.
 #param(s)
 #field_values: This is the list of values entered by the user to define this
+#characters_folder: the path to the characters folder
 #character
 #return(s)
 #no return value
-def create_character(field_values):
-    characters_folder = dnd.get_characters_folder()
+def create_character(field_values, characters_folder):
     file_name = characters_folder + field_values[character_fields.index("name")] + ".csv"
     print(file_name)
 
@@ -92,7 +92,7 @@ def edit_created_character(field_values):
 #no param(s)
 #return(s)
 #no return(s)
-def value_inputs():
+def value_inputs(characters_folder):
     #Create an empy list the same size as character_fields
     field_values = [None] * len(character_fields)
     values_index = 0
@@ -150,16 +150,16 @@ def value_inputs():
     if edit_input == "yes":
         field_values = edit_created_character(field_values)
     
-    create_character(field_values)
+    create_character(field_values, characters_folder)
 
             
 #the main function of character creation which explains the tool and lets the user
 #continue to create characters, or return to menu mode
 #param(s)
-#no param(s)
+#characters_folder: the path to the characters folder
 #return(s)
 #no return(s)
-def upload_characters():
+def upload_characters(characters_folder):
     #Tool explanation
     print("Mode changed from menu to character upload.")
     print("In character upload you will be prompted to enter information for a character.\n" + 
@@ -181,7 +181,7 @@ def upload_characters():
 
         match character_command:
             case "create":
-                value_inputs()
+                value_inputs(characters_folder)
             case "exit":
                 print("Mode changed from character upload to menu.")
                 creation_running = False
