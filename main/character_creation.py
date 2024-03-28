@@ -1,5 +1,5 @@
 # Author(s): CJ Roedel
-# Last update: 03/26/24 - 2:23
+# Last update: 03/28/24 - 1:11
 
 #imports
 import csv
@@ -173,7 +173,7 @@ def upload_characters():
 
     #While the user wants to be in character creation
     while creation_running:
-        print("To create a new character enter 'create'. To return to the normal command space enter 'exit'.")
+        print("To create a new character enter 'create'. To return to the menu enter 'exit'.")
 
         character_command = input("\nCommand: ")
         print("")
