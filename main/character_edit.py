@@ -7,12 +7,27 @@ import os
 
 #Get the list of all saved characters and prints them to the screen
 #param(s)
-#no params
+#characters_folder: the path to the characters folder
 #return(s)
 #list of saved character names
-def get_characters_list():
-    characters_folder = dnd.get_characters_folder()
+def get_characters_list(characters_folder):
     files_list = os.listdir(characters_folder)
+
+    if len(files_list) == 0:
+        print("\nThere are no characters to edit.")
+        return None
+
+    character_names = files_list
+
+    for i in range(len(files_list)):
+        character_names[i] = str(files_list[i]).removesuffix(".csv")
+
+    print("\nHere is the list of all saved characters:")
+    for name in character_names:
+        print(name)
+    
+    return character_names
+         
 
 #Get the values of the currently selected character for editing
 #param(s)
@@ -43,20 +58,22 @@ def edit(characters_folder):
           "From here you will be given the list of values that you can edit. Select a value\n" + 
           "and then enter the new value that you want for the character. When you are done\n" + 
           "editing a character enter 'done' to finish.\n")
-    
-    get_characters_list()
+    print("To edit a character enter the characters name. To return to the menu enter 'exit'.")
 
     edit_running = True
 
     #While the user wants to be in character creation
     while edit_running:
-        print("To edit a character enter the characters name. To return to the menu enter 'exit'.")
+
+        character_list = get_characters_list(characters_folder)
+
+        if character_list == None:
+            print("\nMode changed from character edit to menu.")
+            return
 
         character_name = input("\nCharacter: ")
         print("")
         character_name = character_name.lower()
-
-        character_list = get_characters_list(characters_folder)
 
         if character_name in character_list:
                 edit(character_name)
