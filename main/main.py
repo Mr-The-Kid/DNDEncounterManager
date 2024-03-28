@@ -4,10 +4,12 @@
 #imports
 import character_creation as cc
 
+#outputs a list of all commands that can be used
 def display_help():
     print("upload:  Begins the process to upload characters to the encounter manager")
     print("create:  Begins the process of creating an encounter")
     print("start:   Starts the encounter that has been created")
+    print("edit:    Allows editing or deletion of previously created characters")
     print("exit:    Exits the program")
 
 
@@ -27,6 +29,7 @@ def main():
         print("")
         command_input = command_input.lower()
 
+        #Matches input to usable commands
         match command_input:
             case "help":
                 display_help()

@@ -3,6 +3,7 @@
 
 #imports
 import csv
+import os
 
 #globals
 #character_fields is the list of fields that a character needs to be created.
@@ -25,7 +26,15 @@ def get_character_fields():
 #return(s)
 #no return value
 def create_character(field_values):
-    print("\nFinished")
+    characters_folder = str(os.path.normpath(os.getcwd())) + "\characters\\"
+    file_name = characters_folder + field_values[character_fields.index("name")] + ".csv"
+    print(file_name)
+
+    with open(file_name, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=character_fields)
+
+        writer.writeheader()
+        writer.writerow(dict(zip(character_fields, field_values)))
 
 #if a user decides that they want to change the values of their character before
 #the character is saved to a file they can do so here
@@ -35,28 +44,37 @@ def create_character(field_values):
 #return(s)
 #field_values: Returns the update list of field values
 def edit_created_character(field_values):
+    #Editing instructions
     print("\nYou have chosen to edit your character. When you are done enter 'done'. This will\n" +
           "exit edit mode and save your character. To edit later use edit mode from the menu.")
     
     editing = True
 
+    
     while editing:
-        print("The field values that you can edit are: " + character_fields)
+        #Print the field names that can be used
+        print("The field values that you can edit are: ")
+        for field in character_fields:
+            print(field)
         print("Enter a field name as shown above. You will then be prompted to enter the new value.")
 
         edit_field = input("\nField: ")
         edit_field = edit_field.lower()
         print("")
 
+        #Check if done
         if edit_field == "done":
             return field_values
+        #Check if entered is valid option
         elif edit_field in character_fields:
             field_index = character_fields.index(edit_field)
             
             print("You are now editing the " + edit_field + " field. Current value is " + field_values[field_index])
-
+            
+            #Get value
             field_values[field_index] = input("\nUpdating " + field_values[field_index] + " to: ")
 
+            #print new value and apply update to character
             print("\nUpdated value.")
             print("\nThis is now your character:")
             for i in range(len(character_fields)):
@@ -65,6 +83,7 @@ def edit_created_character(field_values):
         else:
             print("Please enter a field name or done.")
             continue
+    return field_values
         
 
 #This is the main function where the user must input the information for their
