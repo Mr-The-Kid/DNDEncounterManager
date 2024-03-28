@@ -3,6 +3,7 @@
 
 #imports
 import character_creation as cc
+import character_edit as ce
 
 #outputs a list of all commands that can be used
 def display_help():
@@ -42,7 +43,7 @@ def main():
             case "exit":
                 program_running = False
             case "edit":
-                next
+                ce.edit()
             case default:
                 print("Please enter a valid command. For a list of valid commands enter 'help'.")
 

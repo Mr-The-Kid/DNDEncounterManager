@@ -49,7 +49,7 @@ def edit():
     while edit_running:
         print("To edit a character enter the characters name. To return to the menu enter 'exit'.")
 
-        character_name = input("\Character: ")
+        character_name = input("\nCharacter: ")
         print("")
         character_name = character_name.lower()
 
@@ -61,4 +61,4 @@ def edit():
             print("Mode changed from character edit to menu.")
             edit_running = False
         else:
-            print("Invalid command entered. Please enter a valid command.")
+            print("Invalid name. Please enter a valid name or exit.\n")

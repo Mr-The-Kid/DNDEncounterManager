@@ -4,6 +4,7 @@
 #imports
 import csv
 import os
+from pathlib import Path
 
 #globals
 #character_fields is the list of fields that a character needs to be created.
@@ -27,6 +28,7 @@ def get_character_fields():
 #no return value
 def create_character(field_values):
     characters_folder = str(os.path.normpath(os.getcwd())) + "\characters\\"
+    Path(characters_folder).mkdir(parents=True, exist_ok=True)
     file_name = characters_folder + field_values[character_fields.index("name")] + ".csv"
     print(file_name)
 
