@@ -1,18 +1,24 @@
 ﻿# DNDEncounterManager
 
-# Completed Tasks for V 1.0:
+## Completed Tasks for V 1.0:
 
-character_creation.py
+### character_creation.py
 
-# To Do for V 1.0:
+## To Do for V 1.0:
 
-character_edit.py
+### character_edit.py
+~~get_characters_list(characters_folder)~~
 
-encounter_creation.py
+get_character_values(character_name)
 
-encounter_player.py
+edit_character(character_name)
 
+~~edit(characters_folder)~~
 
-# To Do for V 2.0:
+### encounter_creation.py
 
-Brainstorm new features and expand project scope
+### encounter_player.py
+
+## To Do for V 2.0:
+
+### Brainstorm new features and expand project scope
