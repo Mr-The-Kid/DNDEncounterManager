@@ -2,15 +2,27 @@
 # Last update: 03/28/24 - 1:11
 
 #imports
-import DND_Encounter_Manager as dnd
 import os
+import csv
+
+#globals
+characters_folder = ""
+character_fields = []
+
+def set_characters_folder(path):
+    global characters_folder
+    characters_folder = path
+
+def set_characters_field(field):
+   global character_fields
+   character_fields = field
 
 #Get the list of all saved characters and prints them to the screen
 #param(s)
-#characters_folder: the path to the characters folder
+#no param(s)
 #return(s)
 #list of saved character names
-def get_characters_list(characters_folder):
+def get_characters_list():
     files_list = os.listdir(characters_folder)
 
     if len(files_list) == 0:
@@ -33,8 +45,27 @@ def get_characters_list(characters_folder):
 #param(s)
 #character_name: the name of the character to edit
 #return(s)
-#list of edited character values
+#list of character values
 def get_character_values(character_name):
+    character_file = characters_folder + character_name + ".csv"
+    
+    character_values = character_fields
+
+    with open(character_file, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+
+        for row in reader:
+            for i in range(len(character_fields)):
+                character_values[i] = row[character_fields[i]]
+        
+    print(character_values)
+
+#Save the changes made by the user to the characters file
+#param(s)
+#new_values: the updated values for the character
+#return(s)
+#no return(s)
+def update_character_values(new_values):
     next
 
 #Updates the existing character with the edited values
@@ -43,14 +74,32 @@ def get_character_values(character_name):
 #return(s)
 #no return(s)
 def edit_character(character_name):
-    next
+    print("You have selected to edit " + character_name + ". Select a field to edit or enter done to finish.")
+
+    field_values = get_character_values(character_name)
+
+    edit_running = True
+
+    while edit_running:
+        edit_field = input("\nField: ")
+        edit_field = edit_field.lower()
+        print("")
+
+        if edit_field in character_fields:
+            next
+        elif edit_field == "done":
+            edit_running = False
+            print("Saving character now.")
+            update_character_values()
+        else:
+            print("Please enter a valid field name or 'done'")
 
 #Edit mode which allows for the user to edit the values of a character
 #param(s)
-#characters_folder: the path to the characters folder
+#no param(s)
 #return(s)
 #no return(s)
-def edit(characters_folder):
+def edit():
     #Tool explanation
     print("Mode changed from menu to character edit.")
     print("In character edit you will be given the list of all characters that are currently.\n" + 
@@ -65,7 +114,7 @@ def edit(characters_folder):
     #While the user wants to be in character creation
     while edit_running:
 
-        character_list = get_characters_list(characters_folder)
+        character_list = get_characters_list()
 
         if character_list == None:
             print("\nMode changed from character edit to menu.")
@@ -76,7 +125,7 @@ def edit(characters_folder):
         character_name = character_name.lower()
 
         if character_name in character_list:
-                edit(character_name)
+            edit_character(character_name)
         elif character_name == "exit":
             print("Mode changed from character edit to menu.")
             edit_running = False

@@ -10,6 +10,11 @@ import os
 #globals
 #characters folder path *DO NOT CHANGE*
 characters_folder = str(os.path.normpath(os.getcwd())) + "\characters\\"
+character_fields = ["name", "total_hp", "current_hp", "ac"]
+
+cc.set_character_fields(character_fields)
+ce.set_characters_field(character_fields)
+ce.set_characters_folder(characters_folder)
 
 #outputs a list of all commands that can be used
 def display_help():
@@ -51,7 +56,7 @@ def main():
             case "exit":
                 program_running = False
             case "edit":
-                ce.edit(characters_folder)
+                ce.edit()
             case default:
                 print("Please enter a valid command. For a list of valid commands enter 'help'.")
 

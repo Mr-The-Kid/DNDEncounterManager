@@ -3,21 +3,15 @@
 
 #imports
 import csv
-import DND_Encounter_Manager as dnd
 
 #globals
 #character_fields is the list of fields that a character needs to be created.
 #Editing this list will update all processes to account for the new field values.
-character_fields = ["name", "total_hp", "current_hp", "ac"]
+character_fields = []
 
-#Function to access the set character fields. Used by the program for rectification
-#of old characters that were created with a different set of required values
-#param(s)
-#no param(s)
-#return(s)
-#no return(s)
-def get_character_fields():
-    return character_fields
+def set_character_fields(fields):
+    global character_fields
+    character_fields = fields
 
 #creates a new csv file for a character from the inputs provided for it.
 #param(s)
@@ -130,6 +124,9 @@ def value_inputs(characters_folder):
             else:
                 #Check that only letters and numbers are used for the name
                 if input_value.isalnum():
+                    if input_value == "done":
+                        print("You have entered 'done' as a characters name, but done is a reserved word.")
+                        continue
                     print("Character " + character_fields[values_index] + " saved as " + input_value)
                     field_values[values_index] = input_value
                     values_index += 1
