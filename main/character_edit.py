@@ -58,10 +58,13 @@ def get_character_values(character_name):
             for i in range(len(character_fields)):
                 character_values[i] = row[character_fields[i]]
 
+    print("\nHere is the current set-up for character " + character_name)
     for i in range(len(character_fields)):
-        print("Field: " + character_fields[i])
-        print("Value: " + character_values[i])
-        print("")
+        print("Character " + character_fields[i] + ": " + character_values[i])
+
+    print("\nEnter one of the fields below")
+    for field in character_fields:
+        print(field)
 
 #Save the changes made by the user to the characters file
 #param(s)
