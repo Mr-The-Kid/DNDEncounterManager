@@ -37,6 +37,7 @@ def get_characters_list():
     print("\nHere is the list of all saved characters:")
     for name in character_names:
         print(name)
+    print(character_fields)
     
     return character_names
          
@@ -49,7 +50,7 @@ def get_characters_list():
 def get_character_values(character_name):
     character_file = characters_folder + character_name + ".csv"
     
-    character_values = character_fields
+    character_values = [None] * len(character_fields)
 
     with open(character_file, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
