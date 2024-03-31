@@ -29,8 +29,7 @@ def get_characters_list():
         print("\nThere are no characters to edit.")
         return None
 
-    character_names = files_list
-
+    character_names = [None] * len(files_list)
     for i in range(len(files_list)):
         character_names[i] = str(files_list[i]).removesuffix(".csv")
 
@@ -58,8 +57,9 @@ def get_character_values(character_name):
         for row in reader:
             for i in range(len(character_fields)):
                 character_values[i] = row[character_fields[i]]
-        
-    print(character_values)
+
+    for i in range(len(character_fields)):
+        print("Field: " + character_fields[i])
 
 #Save the changes made by the user to the characters file
 #param(s)
