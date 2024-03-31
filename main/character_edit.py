@@ -61,6 +61,7 @@ def get_character_values(character_name):
     for i in range(len(character_fields)):
         print("Field: " + character_fields[i])
         print("Value: " + character_values[i])
+        print("")
 
 #Save the changes made by the user to the characters file
 #param(s)
