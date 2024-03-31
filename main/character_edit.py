@@ -45,12 +45,13 @@ def get_characters_list():
 #param(s)
 #character_name: the name of the character to edit
 #return(s)
-#list of character values
+#list of character values # and fields
 def get_character_values(character_name):
     character_file = characters_folder + character_name + ".csv"
-    
+    fields = character_fields #saves the field names as fields before the conversion to character_values - doesnt work
     character_values = character_fields
-
+    print(character_fields)
+    
     with open(character_file, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
 
@@ -58,7 +59,8 @@ def get_character_values(character_name):
             for i in range(len(character_fields)):
                 character_values[i] = row[character_fields[i]]
         
-    print(character_values)
+    print(fields) #Change from values to FIELDS???
+    print(character_fields)
 
 #Save the changes made by the user to the characters file
 #param(s)
@@ -92,6 +94,7 @@ def edit_character(character_name):
             print("Saving character now.")
             update_character_values()
         else:
+            print("INVALID! ")
             print("Please enter a valid field name or 'done'")
 
 #Edit mode which allows for the user to edit the values of a character
@@ -123,7 +126,7 @@ def edit():
         character_name = input("\nCharacter: ")
         print("")
         character_name = character_name.lower()
-
+ 
         if character_name in character_list:
             edit_character(character_name)
         elif character_name == "exit":
