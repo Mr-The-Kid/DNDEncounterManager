@@ -3,11 +3,12 @@
 ## Completed Tasks for V 1.0:
 
 ### character_creation.py
-
-## To Do for V 1.0:
+needs testing
 
 ### character_edit.py
 needs testing
+
+## To Do for V 1.0:
 
 ### encounter_creation.py
 
