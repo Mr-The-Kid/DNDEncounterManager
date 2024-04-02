@@ -22,7 +22,6 @@ def set_character_fields(fields):
 #no return value
 def create_character(field_values, characters_folder):
     file_name = characters_folder + field_values[character_fields.index("name")] + ".csv"
-    print(file_name)
 
     with open(file_name, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=character_fields)
@@ -66,7 +65,24 @@ def edit_created_character(field_values):
             print("You are now editing the " + edit_field + " field. Current value is " + field_values[field_index])
             
             #Get value
-            field_values[field_index] = input("\nUpdating " + field_values[field_index] + " to: ")
+            edit_value = input("\nUpdating " + field_values[field_index] + " to: ")
+
+            if character_fields[field_index] != "name":
+                if edit_value.isnumeric():
+                    print("Character " + character_fields[field_index] + " saved as " + edit_value)
+                    field_values[field_index] = edit_value
+                else:
+                    print("Please only input integers for values that are not names.")
+            else:
+                #Check that only letters and numbers are used for the name
+                if edit_value.isalnum():
+                    if edit_value == "done":
+                        print("You have entered 'done' as a characters name, but done is a reserved word.")
+                        continue
+                    print("Character " + character_fields[field_index] + " saved as " + edit_value)
+                    field_values[field_index] = edit_value
+                else:
+                    print("Please only input letters and digits for a characters name.")
 
             #print new value and apply update to character
             print("\nUpdated value.")
