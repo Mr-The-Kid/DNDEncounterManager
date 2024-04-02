@@ -36,7 +36,6 @@ def get_characters_list():
     print("\nHere is the list of all saved characters:")
     for name in character_names:
         print(name)
-    print(character_fields)
     
     return character_names
          
@@ -62,17 +61,30 @@ def get_character_values(character_name):
     for i in range(len(character_fields)):
         print("Character " + character_fields[i] + ": " + character_values[i])
 
-    print("\nEnter one of the fields below")
+    print("\nEnter one of the fields below, or 'done'")
     for field in character_fields:
         print(field)
+    
+    return character_values
 
 #Save the changes made by the user to the characters file
 #param(s)
 #new_values: the updated values for the character
 #return(s)
-#no return(s)
-def update_character_values(new_values):
-    next
+#character_name: returns the characters name in case it has changed
+def update_character_values(new_values, character_name):
+    file_name = characters_folder + character_name + ".csv"
+    os.remove(file_name)
+    if character_name != new_values[character_fields.index("name")]:
+        file_name = characters_folder + new_values[character_fields.index("name")] + ".csv"
+
+    with open(file_name, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=character_fields)
+
+        writer.writeheader()
+        writer.writerow(dict(zip(character_fields, new_values)))
+    
+    return new_values[character_fields.index("name")]
 
 #Updates the existing character with the edited values
 #param(s)
@@ -82,21 +94,41 @@ def update_character_values(new_values):
 def edit_character(character_name):
     print("You have selected to edit " + character_name + ". Select a field to edit or enter done to finish.")
 
-    field_values = get_character_values(character_name)
-
     edit_running = True
 
     while edit_running:
+        field_values = get_character_values(character_name)
         edit_field = input("\nField: ")
         edit_field = edit_field.lower()
         print("")
 
         if edit_field in character_fields:
-            next
+            print("Enter the new value for " + edit_field)
+            edit_value = input("\nValue: ")
+            print("")
+            idx = character_fields.index(edit_field)
+
+            if character_fields[idx] != "name":
+                if edit_value.isnumeric():
+                    print("Character " + character_fields[idx] + " saved as " + edit_value)
+                    field_values[idx] = edit_value
+                else:
+                    print("Please only input integers for values that are not names.")
+            else:
+                #Check that only letters and numbers are used for the name
+                if edit_value.isalnum():
+                    if edit_value == "done":
+                        print("You have entered 'done' as a characters name, but done is a reserved word.")
+                        continue
+                    print("Character " + character_fields[idx] + " saved as " + edit_value)
+                    field_values[idx] = edit_value
+                else:
+                    print("Please only input letters and digits for a characters name.")
+
+            character_name = update_character_values(field_values, character_name)
         elif edit_field == "done":
             edit_running = False
             print("Saving character now.")
-            update_character_values()
         else:
             print("Please enter a valid field name or 'done'")
 
