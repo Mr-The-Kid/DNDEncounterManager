@@ -7,13 +7,7 @@
 ## To Do for V 1.0:
 
 ### character_edit.py
-~~get_characters_list(characters_folder)~~
-
-get_character_values(character_name)
-
-edit_character(character_name)
-
-~~edit(characters_folder)~~
+needs testing
 
 ### encounter_creation.py
 
